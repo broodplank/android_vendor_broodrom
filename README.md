@@ -1,4 +1,5 @@
 android_vendor_broodrom
 =======================
 
-broodROM Vendor files
+Essentials for broodROM Jellybean
+Replacement of /vendor/cm

@@ -1,0 +1,203 @@
+#!/system/bin/sh
+# Created by broodplank1337
+# broodROM Jellybean
+# Release 2 (broodParts 2)
+
+# Remount all partitions with Noatime
+echo "Remounting partitions" 
+mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /cache /cache;
+mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /data /data;
+mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /persist /persist;
+mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /system /system;
+mount -o remount rw /system
+
+# General unsorted tweaks
+setprop wifi.supplicant_scan_interval 120; 
+if  [ -z "`getprop windowsmgr.max_events_per_sec`"  ] || [ "`getprop windowsmgr.max_events_per_sec`" -lt 60 ];then
+	 90; # smoother GUI
+fi;
+ 
+# broodParts Settings:
+if [ -e /system/etc/broodrom/scaling_governor ]; then
+	echo "Setting CPU Governor" 
+        cat /system/etc/broodrom/scaling_governor > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    else
+        busybox sleep 0
+fi;
+
+if [ -e /system/etc/broodrom/scaling_min_freq ]; then
+	echo "Setting CPU Min Freq" 
+        cat /system/etc/broodrom/scaling_min_freq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    else
+        busybox sleep 0
+fi; 
+
+if [ -e /system/etc/broodrom/scaling_max_freq ]; then
+	echo "Setting CPU Max Freq" 
+        cat /system/etc/broodrom/scaling_max_freq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    else
+        busybox sleep 0
+fi;
+
+if [ -e /system/etc/broodrom/scheduler ]; then
+	echo "Setting I/O Scheduler" 
+        export SCHEDPREF=`cat /system/etc/broodrom/scheduler`;
+        echo ${SCHEDPREF} > /sys/block/mmcblk0/queue/scheduler
+    else
+        busybox sleep 0
+fi;
+
+if [ -e /system/etc/broodrom/read_ahead_kb ]; then
+	echo "Setting Read Ahead KB for SDCard" 
+        cat /system/etc/broodrom/read_ahead_kb > /sys/devices/virtual/bdi/179:0/read_ahead_kb
+    else
+        busybox sleep 0
+fi;
+
+if [ -e /system/etc/broodrom/adbnotify ]; then
+	echo "Setting ADB Notification Icon" 
+        export ADBPREF=`cat /system/etc/broodrom/adbnotify`; 
+        setprop persist.adb.notify ${ADBPREF}
+    else
+        busybox sleep 0
+fi;
+
+if [ -e /system/etc/broodrom/govtweak ]; then
+	if [ "`cat /system/etc/broodrom/govtweak`" -eq 1 ]; then
+	echo "Enabling CPU Governor Tweaks" 
+        #===============================================================
+	# Ondemand
+	# ==============================================================
+			if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold ]; then
+				echo "Enabling Ondemand Tweaks" 
+				echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold;
+				echo "10" > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/down_differential;
+			fi;		
+			if [ -e /sys/devices/system/cpu/cpufreq/ondemand/up_threshold ]; then
+				echo "85" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold;
+				echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential;
+			fi;
+	# ==============================================================
+	# Conservative 
+	# ==============================================================
+			if [ -e /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold ]; then
+				echo "Enabling Conservative Tweaks" 
+				echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold;
+				echo "75" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/down_threshold;
+				echo "100" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/freq_step;
+			fi;		
+			if [ -e /sys/devices/system/cpu/cpufreq/conservative/up_threshold ]; then
+				echo "85" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold;
+				echo "75" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold;
+		       		echo "100" > /sys/devices/system/cpu/cpufreq/conservative/freq_step;
+			fi;
+	# ==============================================================
+	# smartassV2 
+	# ==============================================================
+			if [ -e /sys/devices/system/cpu/cpufreq/smartass/awake_ideal_freq ]; then
+				echo "Enabling smartassV2 Tweaks" 
+				echo "500000" > /sys/devices/system/cpu/cpufreq/smartass/awake_ideal_freq;
+				if [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ]; then
+					echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
+				else 
+					echo "100000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
+				fi;
+		
+				echo "800000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_wakeup_freq;
+
+				echo "85" > /sys/devices/system/cpu/cpufreq/smartass/max_cpu_load;
+				echo "75" > /sys/devices/system/cpu/cpufreq/smartass/min_cpu_load;
+
+				echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/ramp_down_step;
+				echo "0" > /sys/devices/system/cpu/cpufreq/smartass/ramp_up_step;
+
+			fi;
+
+	else 
+			busybox sleep 0
+	fi;
+fi;
+
+
+
+if [ -e /system/etc/broodrom/iotweak ]; then
+
+
+	if [ "`cat /system/etc/broodrom/iotweak`" -eq 1 ]; then
+		echo "Enabling I/O Scheduler Tweaks" 
+		
+		if [ -e /sys/block/mmcblk0/queue/rotational ]; 
+		then
+			echo 0 > /sys/block/mmcblk0/queue/rotational; 
+		fi;
+		if [ -e /sys/block/mmcblk0/queue/nr_requests ];
+		then
+			echo 1024 > /sys/block/mmcblk0/queue/nr_requests;
+		fi;
+		#CFQ specific
+		if [ -e /sys/block/mmcblk0/queue/iosched/back_seek_penalty ];
+		then 
+			echo 1 > /sys/block/mmcblk0/queue/iosched/back_seek_penalty;
+		fi;
+		#CFQ specific
+		if [ -e /sys/block/mmcblk0/queue/iosched/low_latency ];
+		then
+			echo 1 > /sys/block/mmcblk0/queue/iosched/low_latency;
+		fi;
+		#CFQ Specific
+		if [ -e /sys/block/mmcblk0/queue/iosched/slice_idle ];
+		then 
+			echo 1 > /sys/block/mmcblk0/queue/iosched/slice_idle; 
+		fi;
+		# deadline/VR/SIO scheduler specific
+		if [ -e /sys/block/mmcblk0/queue/iosched/fifo_batch ];
+		then
+			echo 4 > /sys/block/mmcblk0/queue/iosched/fifo_batch;
+		fi;
+		if [ -e /sys/block/mmcblk0/queue/iosched/writes_starved ];
+		then
+			echo 4 > /sys/block/mmcblk0/queue/iosched/writes_starved;
+		fi;
+		#CFQ specific
+		if [ -e /sys/block/mmcblk0/queue/iosched/quantum ];
+		then
+			echo 8 > /sys/block/mmcblk0/queue/iosched/quantum;
+		fi;
+		#VR Specific
+		if [ -e /sys/block/mmcblk0/queue/iosched/rev_penalty ];
+		then
+			echo 1 > /sys/block/mmcblk0/queue/iosched/rev_penalty;
+		fi;
+		if [ -e /sys/block/mmcblk0/queue/rq_affinity ];
+		then
+		echo "1"   >  /sys/block/mmcblk0/queue/rq_affinity;   
+		fi;
+		#disable iostats to reduce overhead  # idea by kodos96 - thanks !
+		if [ -e /sys/block/mmcblk0/queue/iostats ];
+		then
+			echo "0" > /sys/block/mmcblk0/queue/iostats;
+		fi;
+	else
+		busybox sleep 0
+	fi;
+fi;
+
+
+
+if [ -e /system/etc/broodrom/nettweak ]; then
+	if [ "`cat /system/etc/broodrom/nettweak`" -eq 1 ]; then
+		echo "Enabling Network Tweaks" 
+		sysctl -w net.ipv4.tcp_timestamps=0;
+		sysctl -w net.ipv4.tcp_tw_reuse=1;
+		sysctl -w net.ipv4.tcp_sack=1;
+		sysctl -w net.ipv4.tcp_dsack=1;
+		sysctl -w net.ipv4.tcp_tw_recycle=1;
+		sysctl -w net.ipv4.tcp_window_scaling=1;
+		sysctl -w net.ipv4.tcp_keepalive_probes=5;
+		sysctl -w net.ipv4.tcp_keepalive_intvl=30;
+		sysctl -w net.ipv4.tcp_fin_timeout=30;
+		sysctl -w net.ipv4.tcp_moderate_rcvbuf=1;
+	else 
+		busybox sleep 0
+	fi;
+fi;

@@ -3,14 +3,6 @@
 # broodROM Jellybean
 # Release 2 (broodParts 2)
 
-# Remount all partitions with Noatime
-echo "Remounting partitions" 
-mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /cache /cache;
-mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /data /data;
-mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /persist /persist;
-mount -o noatime,remount,rw,discard,barrier=0,commit=60,noauto_da_alloc,delalloc /system /system;
-mount -o remount rw /system
-
 # General unsorted tweaks
 setprop wifi.supplicant_scan_interval 120; 
 if  [ -z "`getprop windowsmgr.max_events_per_sec`"  ] || [ "`getprop windowsmgr.max_events_per_sec`" -lt 60 ];then
@@ -65,7 +57,8 @@ fi;
 if [ -e /system/etc/broodrom/govtweak ]; then
 	if [ "`cat /system/etc/broodrom/govtweak`" -eq 1 ]; then
 	echo "Enabling CPU Governor Tweaks" 
-        #===============================================================
+	
+    #===============================================================
 	# Ondemand
 	# ==============================================================
 			if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold ]; then
@@ -76,6 +69,20 @@ if [ -e /system/etc/broodrom/govtweak ]; then
 			if [ -e /sys/devices/system/cpu/cpufreq/ondemand/up_threshold ]; then
 				echo "85" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold;
 				echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential;
+			fi;
+			
+	# ==============================================================
+	# OndemandX
+	# ==============================================================
+			if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/up_threshold ]; then
+				echo "Enabling Ondemandx Tweaks" 
+				echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/up_threshold;
+				echo "10" > /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/down_differential;
+			fi;		
+			if [ -e /sys/devices/system/cpu/cpufreq/ondemandx/up_threshold ]; then
+				echo "Enabling Ondemandx Tweaks" 
+				echo "85" > /sys/devices/system/cpu/cpufreq/ondemandx/up_threshold;
+				echo "10" > /sys/devices/system/cpu/cpufreq/ondemandx/down_differential;
 			fi;
 	# ==============================================================
 	# Conservative 
@@ -89,7 +96,7 @@ if [ -e /system/etc/broodrom/govtweak ]; then
 			if [ -e /sys/devices/system/cpu/cpufreq/conservative/up_threshold ]; then
 				echo "85" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold;
 				echo "75" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold;
-		       		echo "100" > /sys/devices/system/cpu/cpufreq/conservative/freq_step;
+		       	echo "100" > /sys/devices/system/cpu/cpufreq/conservative/freq_step;
 			fi;
 	# ==============================================================
 	# smartassV2 
@@ -102,26 +109,26 @@ if [ -e /system/etc/broodrom/govtweak ]; then
 				else 
 					echo "100000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
 				fi;
-		
 				echo "800000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_wakeup_freq;
-
 				echo "85" > /sys/devices/system/cpu/cpufreq/smartass/max_cpu_load;
 				echo "75" > /sys/devices/system/cpu/cpufreq/smartass/min_cpu_load;
-
 				echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/ramp_down_step;
 				echo "0" > /sys/devices/system/cpu/cpufreq/smartass/ramp_up_step;
-
 			fi;
-
-	else 
-			busybox sleep 0
+	# ==============================================================
+	# lulzactive 
+	# ==============================================================
+			if [ -e /sys/devices/system/cpu/cpufreq/lulzactive/inc_cpu_load ]; then
+				echo "Enabling lulzactive Tweaks" 
+				echo "85" > /sys/devices/system/cpu/cpufreq/lulzactive/inc_cpu_load;
+				echo "1" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_down_step;
+			fi;
 	fi;
 fi;
 
 
 
 if [ -e /system/etc/broodrom/iotweak ]; then
-
 
 	if [ "`cat /system/etc/broodrom/iotweak`" -eq 1 ]; then
 		echo "Enabling I/O Scheduler Tweaks" 
@@ -177,12 +184,8 @@ if [ -e /system/etc/broodrom/iotweak ]; then
 		then
 			echo "0" > /sys/block/mmcblk0/queue/iostats;
 		fi;
-	else
-		busybox sleep 0
 	fi;
 fi;
-
-
 
 if [ -e /system/etc/broodrom/nettweak ]; then
 	if [ "`cat /system/etc/broodrom/nettweak`" -eq 1 ]; then
@@ -197,7 +200,5 @@ if [ -e /system/etc/broodrom/nettweak ]; then
 		sysctl -w net.ipv4.tcp_keepalive_intvl=30;
 		sysctl -w net.ipv4.tcp_fin_timeout=30;
 		sysctl -w net.ipv4.tcp_moderate_rcvbuf=1;
-	else 
-		busybox sleep 0
 	fi;
 fi;

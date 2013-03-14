@@ -20,7 +20,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # init.d support
 PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/etc/init.d/00broodparts:system/etc/init.d/00broodparts \
-    vendor/broodrom/prebuilt/common/etc/init.d/01broodtweaks:system/etc/init.d/01broodtweaks \
     vendor/broodrom/prebuilt/common/bin/sysinit:system/bin/sysinit
 
 # broodROM Specific
@@ -39,8 +38,8 @@ PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/xbin/zipalign:system/xbin/zipalign \
     vendor/broodrom/prebuilt/common/xbin/sqlite3:system/xbin/sqlite3 \
     vendor/broodrom/prebuilt/common/lib/libncurses.so:system/lib/libncurses.so \
-	vendor/broodrom/prebuilt/common/lib/libsqlite.so:system/lib/libsqlite.so \
-	vendor/broodrom/prebuilt/common/lib/libsqlite_jni.so:system/lib/libsqlite_jni.so \
+    vendor/broodrom/prebuilt/common/lib/libsqlite.so:system/lib/libsqlite.so \
+    vendor/broodrom/prebuilt/common/lib/libsqlite_jni.so:system/lib/libsqlite_jni.so \
     vendor/broodrom/prebuilt/common/app/broodParts.apk:system/app/broodParts.apk
 
 

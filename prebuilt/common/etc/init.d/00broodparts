@@ -1,7 +1,7 @@
 #!/system/bin/sh
 # Created by broodplank1337
 # broodROM Jellybean
-# Release 2 (broodParts 2)
+# Release 2 (broodParts 2.5)
 
 # General unsorted tweaks
 setprop wifi.supplicant_scan_interval 120; 
@@ -57,72 +57,70 @@ fi;
 if [ -e /system/etc/broodrom/govtweak ]; then
 	if [ "`cat /system/etc/broodrom/govtweak`" -eq 1 ]; then
 	echo "Enabling CPU Governor Tweaks" 
-	
-    #===============================================================
+        #===============================================================
 	# Ondemand
 	# ==============================================================
-			if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold ]; then
-				echo "Enabling Ondemand Tweaks" 
-				echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold;
-				echo "10" > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/down_differential;
-			fi;		
-			if [ -e /sys/devices/system/cpu/cpufreq/ondemand/up_threshold ]; then
-				echo "85" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold;
-				echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential;
-			fi;
-			
+		if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold ]; then
+			echo "Enabling Ondemand Tweaks" 
+			echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold;
+			echo "10" > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/down_differential;
+		fi;		
+		if [ -e /sys/devices/system/cpu/cpufreq/ondemand/up_threshold ]; then
+			echo "85" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold;
+			echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential;
+		fi;		
 	# ==============================================================
 	# OndemandX
 	# ==============================================================
-			if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/up_threshold ]; then
-				echo "Enabling Ondemandx Tweaks" 
-				echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/up_threshold;
-				echo "10" > /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/down_differential;
-			fi;		
-			if [ -e /sys/devices/system/cpu/cpufreq/ondemandx/up_threshold ]; then
-				echo "Enabling Ondemandx Tweaks" 
-				echo "85" > /sys/devices/system/cpu/cpufreq/ondemandx/up_threshold;
-				echo "10" > /sys/devices/system/cpu/cpufreq/ondemandx/down_differential;
-			fi;
+		if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/up_threshold ]; then
+			echo "Enabling Ondemandx Tweaks" 
+			echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/up_threshold;
+			echo "10" > /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/down_differential;
+		fi;		
+		if [ -e /sys/devices/system/cpu/cpufreq/ondemandx/up_threshold ]; then
+			echo "Enabling Ondemandx Tweaks" 
+			echo "85" > /sys/devices/system/cpu/cpufreq/ondemandx/up_threshold;
+			echo "10" > /sys/devices/system/cpu/cpufreq/ondemandx/down_differential;
+		fi;
 	# ==============================================================
 	# Conservative 
 	# ==============================================================
-			if [ -e /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold ]; then
-				echo "Enabling Conservative Tweaks" 
-				echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold;
-				echo "75" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/down_threshold;
-				echo "100" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/freq_step;
-			fi;		
-			if [ -e /sys/devices/system/cpu/cpufreq/conservative/up_threshold ]; then
-				echo "85" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold;
-				echo "75" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold;
-		       	echo "100" > /sys/devices/system/cpu/cpufreq/conservative/freq_step;
-			fi;
+		if [ -e /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold ]; then
+			echo "Enabling Conservative Tweaks" 
+			echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold;
+			echo "75" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/down_threshold;
+			echo "100" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/freq_step;
+		fi;		
+		if [ -e /sys/devices/system/cpu/cpufreq/conservative/up_threshold ]; then
+			echo "85" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold;
+			echo "75" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold;
+	       		echo "100" > /sys/devices/system/cpu/cpufreq/conservative/freq_step;
+		fi;
 	# ==============================================================
 	# smartassV2 
 	# ==============================================================
-			if [ -e /sys/devices/system/cpu/cpufreq/smartass/awake_ideal_freq ]; then
-				echo "Enabling smartassV2 Tweaks" 
-				echo "500000" > /sys/devices/system/cpu/cpufreq/smartass/awake_ideal_freq;
-				if [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ]; then
-					echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
-				else 
-					echo "100000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
-				fi;
-				echo "800000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_wakeup_freq;
-				echo "85" > /sys/devices/system/cpu/cpufreq/smartass/max_cpu_load;
-				echo "75" > /sys/devices/system/cpu/cpufreq/smartass/min_cpu_load;
-				echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/ramp_down_step;
-				echo "0" > /sys/devices/system/cpu/cpufreq/smartass/ramp_up_step;
+		if [ -e /sys/devices/system/cpu/cpufreq/smartass/awake_ideal_freq ]; then
+			echo "Enabling smartassV2 Tweaks" 
+			echo "500000" > /sys/devices/system/cpu/cpufreq/smartass/awake_ideal_freq;
+			if [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ]; then
+				echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
+			else 
+				echo "100000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
 			fi;
+			echo "800000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_wakeup_freq;
+			echo "85" > /sys/devices/system/cpu/cpufreq/smartass/max_cpu_load;
+			echo "75" > /sys/devices/system/cpu/cpufreq/smartass/min_cpu_load;
+			echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/ramp_down_step;
+			echo "0" > /sys/devices/system/cpu/cpufreq/smartass/ramp_up_step;
+		fi;
 	# ==============================================================
 	# lulzactive 
 	# ==============================================================
-			if [ -e /sys/devices/system/cpu/cpufreq/lulzactive/inc_cpu_load ]; then
-				echo "Enabling lulzactive Tweaks" 
-				echo "85" > /sys/devices/system/cpu/cpufreq/lulzactive/inc_cpu_load;
-				echo "1" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_down_step;
-			fi;
+		if [ -e /sys/devices/system/cpu/cpufreq/lulzactive/inc_cpu_load ]; then
+			echo "Enabling lulzactive Tweaks" 
+			echo "85" > /sys/devices/system/cpu/cpufreq/lulzactive/inc_cpu_load;
+			echo "1" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_down_step;
+		fi;
 	fi;
 fi;
 
@@ -200,5 +198,29 @@ if [ -e /system/etc/broodrom/nettweak ]; then
 		sysctl -w net.ipv4.tcp_keepalive_intvl=30;
 		sysctl -w net.ipv4.tcp_fin_timeout=30;
 		sysctl -w net.ipv4.tcp_moderate_rcvbuf=1;
+	fi;
+fi;
+
+if [ -e /system/etc/broodrom/vmtweak ]; then
+	if [ "`cat /system/etc/broodrom/vmtweak`" -eq 1 ]; then
+		echo "Enabling Dalvik Tweaks" 
+		mem=`free|grep Mem | awk '{print $2}'`;
+		totmem=`(echo - | awk -v A=$mem '{print A*1024;}')`;
+		max=`(echo - | awk -v A=$totmem '{print A*75/100;}')`;
+		page_size=`cat /proc/sys/kernel/shmmni`;
+		all=`(echo - | awk -v A=$totmem -v B=$page_size '{print A*80/100/B}')`;
+		sysctl -w kernel.sem="250 256000 32 1024";
+		sysctl -w kernel.shmmax="$max";
+		sysctl -w kernel.shmall="$all";
+		sysctl -w vm.dirty_background_ratio=15;
+		sysctl -w vm.dirty_ratio=30;
+		sysctl -w vm.page-cluster=3;
+		sysctl -w vm.laptop_mode=0;
+		sysctl -w vm.dirty_expire_centisecs=3000;
+		sysctl -w vm.dirty_writeback_centisecs=500;
+		sysctl -w vm.vfs_cache_pressure=50;
+		sysctl -w vm.overcommit_memory=1;
+		sysctl -w vm.oom_kill_allocating_task=0;
+
 	fi;
 fi;

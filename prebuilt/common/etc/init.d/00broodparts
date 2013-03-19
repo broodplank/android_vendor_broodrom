@@ -3,55 +3,38 @@
 # broodROM Jellybean
 # Release 2 (broodParts 2.5)
 
-# General unsorted tweaks
-setprop wifi.supplicant_scan_interval 120; 
-if  [ -z "`getprop windowsmgr.max_events_per_sec`"  ] || [ "`getprop windowsmgr.max_events_per_sec`" -lt 60 ];then
-	 90; # smoother GUI
-fi;
  
 # broodParts Settings:
 if [ -e /system/etc/broodrom/scaling_governor ]; then
 	echo "Setting CPU Governor" 
         cat /system/etc/broodrom/scaling_governor > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    else
-        busybox sleep 0
 fi;
 
 if [ -e /system/etc/broodrom/scaling_min_freq ]; then
 	echo "Setting CPU Min Freq" 
         cat /system/etc/broodrom/scaling_min_freq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    else
-        busybox sleep 0
 fi; 
 
 if [ -e /system/etc/broodrom/scaling_max_freq ]; then
 	echo "Setting CPU Max Freq" 
         cat /system/etc/broodrom/scaling_max_freq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    else
-        busybox sleep 0
 fi;
 
 if [ -e /system/etc/broodrom/scheduler ]; then
 	echo "Setting I/O Scheduler" 
         export SCHEDPREF=`cat /system/etc/broodrom/scheduler`;
         echo ${SCHEDPREF} > /sys/block/mmcblk0/queue/scheduler
-    else
-        busybox sleep 0
 fi;
 
 if [ -e /system/etc/broodrom/read_ahead_kb ]; then
 	echo "Setting Read Ahead KB for SDCard" 
         cat /system/etc/broodrom/read_ahead_kb > /sys/devices/virtual/bdi/179:0/read_ahead_kb
-    else
-        busybox sleep 0
 fi;
 
 if [ -e /system/etc/broodrom/adbnotify ]; then
 	echo "Setting ADB Notification Icon" 
         export ADBPREF=`cat /system/etc/broodrom/adbnotify`; 
         setprop persist.adb.notify ${ADBPREF}
-    else
-        busybox sleep 0
 fi;
 
 if [ -e /system/etc/broodrom/govtweak ]; then
@@ -204,6 +187,5 @@ if [ -e /system/etc/broodrom/vmtweak ]; then
 		sysctl -w vm.vfs_cache_pressure=50;
 		sysctl -w vm.overcommit_memory=1;
 		sysctl -w vm.oom_kill_allocating_task=0;
-
 	fi;
 fi;

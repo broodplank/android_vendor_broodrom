@@ -24,6 +24,7 @@ PRODUCT_COPY_FILES += \
 
 # broodROM Specific
 PRODUCT_COPY_FILES += \
+    vendor/broodrom/prebuilt/common/etc/hosts:system/etc/hosts \
     vendor/broodrom/prebuilt/common/etc/broodrom/adbnotify:system/etc/broodrom/adbnotify \
     vendor/broodrom/prebuilt/common/etc/broodrom/read_ahead_kb:system/etc/broodrom/read_ahead_kb \
     vendor/broodrom/prebuilt/common/etc/broodrom/scaling_governor:system/etc/broodrom/scaling_governor \
@@ -33,6 +34,7 @@ PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/etc/broodrom/govtweak:system/etc/broodrom/govtweak \
     vendor/broodrom/prebuilt/common/etc/broodrom/iotweak:system/etc/broodrom/iotweak \
     vendor/broodrom/prebuilt/common/etc/broodrom/nettweak:system/etc/broodrom/nettweak \
+    vendor/broodrom/prebuilt/common/etc/broodrom/vmtweak:system/etc/broodrom/vmtweak \
     vendor/broodrom/prebuilt/common/etc/broodrom/vacuum:system/etc/broodrom/vacuum \
     vendor/broodrom/prebuilt/common/etc/broodrom/zipalign:system/etc/broodrom/zipalign \
     vendor/broodrom/prebuilt/common/xbin/zipalign:system/xbin/zipalign \
@@ -40,7 +42,8 @@ PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/lib/libncurses.so:system/lib/libncurses.so \
     vendor/broodrom/prebuilt/common/lib/libsqlite.so:system/lib/libsqlite.so \
     vendor/broodrom/prebuilt/common/lib/libsqlite_jni.so:system/lib/libsqlite_jni.so \
-    vendor/broodrom/prebuilt/common/app/broodParts.apk:system/app/broodParts.apk
+    vendor/broodrom/prebuilt/common/app/broodParts.apk:system/app/broodParts.apk \
+    vendor/broodrom/prebuilt/common/app/AngryGPS.apk:system/app/AngryGPS.apk
 
 
 # Compcache/Zram support

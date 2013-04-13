@@ -39,11 +39,14 @@ PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/etc/broodrom/zipalign:system/etc/broodrom/zipalign \
     vendor/broodrom/prebuilt/common/xbin/zipalign:system/xbin/zipalign \
     vendor/broodrom/prebuilt/common/xbin/sqlite3:system/xbin/sqlite3 \
-    vendor/broodrom/prebuilt/common/lib/libncurses.so:system/lib/libncurses.so \
     vendor/broodrom/prebuilt/common/lib/libsqlite.so:system/lib/libsqlite.so \
     vendor/broodrom/prebuilt/common/lib/libsqlite_jni.so:system/lib/libsqlite_jni.so \
     vendor/broodrom/prebuilt/common/app/broodParts.apk:system/app/broodParts.apk \
-    vendor/broodrom/prebuilt/common/app/AngryGPS.apk:system/app/AngryGPS.apk
+    vendor/broodrom/prebuilt/common/app/AngryGPS.apk:system/app/AngryGPS.apk \
+	vendor/broodrom/prebuilt/common/app/FileManager.apk:system/app/FileManager.apk \
+	vendor/broodrom/prebuilt/common/kernels/boot_oc.img:system/etc/broodrom/boot_oc.img \
+	vendor/broodrom/prebuilt/common/kernels/boot_ocuv.img:system/etc/broodrom/boot_ocuv.img \
+	vendor/broodrom/prebuilt/common/kernels/boot_nonoc.img:system/etc/broodrom/boot_nonoc.img 
 
 
 # Compcache/Zram support

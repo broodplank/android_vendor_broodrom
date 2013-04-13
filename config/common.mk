@@ -1,6 +1,5 @@
 PRODUCT_BRAND ?= broodROM Jellybean
 
-
 PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/bootanimation/bootanimation.zip:system/media/bootanimation.zip
 
@@ -15,7 +14,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.wifi-watchlist=GoogleGuest \
     ro.setupwizard.enterprise_mode=1 \
     ro.com.android.dateformat=MM-dd-yyyy \
-    ro.com.android.dataroaming=false
+    ro.com.android.dataroaming=false \
+	ro.romstats.url=http://www.broodplank.net/stats/ \
+	ro.romstats.name=broodROM Jellybean \
+	ro.romstats.version=Release 4 \
+	ro.romstats.tframe=7
+
 
 # init.d support
 PRODUCT_COPY_FILES += \

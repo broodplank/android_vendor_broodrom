@@ -14,12 +14,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.wifi-watchlist=GoogleGuest \
     ro.setupwizard.enterprise_mode=1 \
     ro.com.android.dateformat=MM-dd-yyyy \
-    ro.com.android.dataroaming=false \
-	ro.romstats.url=http://www.broodplank.net/stats/ \
-	ro.romstats.name=broodROM Jellybean \
-	ro.romstats.version=Release 4 \
-	ro.romstats.tframe=7
-
+    ro.com.android.dataroaming=false 
 
 # init.d support
 PRODUCT_COPY_FILES += \
@@ -47,10 +42,10 @@ PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/lib/libsqlite_jni.so:system/lib/libsqlite_jni.so \
     vendor/broodrom/prebuilt/common/app/broodParts.apk:system/app/broodParts.apk \
     vendor/broodrom/prebuilt/common/app/AngryGPS.apk:system/app/AngryGPS.apk \
-	vendor/broodrom/prebuilt/common/app/FileManager.apk:system/app/FileManager.apk \
-	vendor/broodrom/prebuilt/common/kernels/boot_oc.img:system/etc/broodrom/boot_oc.img \
-	vendor/broodrom/prebuilt/common/kernels/boot_ocuv.img:system/etc/broodrom/boot_ocuv.img \
-	vendor/broodrom/prebuilt/common/kernels/boot_nonoc.img:system/etc/broodrom/boot_nonoc.img 
+    vendor/broodrom/prebuilt/common/app/FileManager.apk:system/app/FileManager.apk \
+    vendor/broodrom/prebuilt/common/kernels/boot_oc.img:system/etc/broodrom/boot_oc.img \
+    vendor/broodrom/prebuilt/common/kernels/boot_ocuv.img:system/etc/broodrom/boot_ocuv.img \
+    vendor/broodrom/prebuilt/common/kernels/boot_nonoc.img:system/etc/broodrom/boot_nonoc.img 
 
 
 # Compcache/Zram support

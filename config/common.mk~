@@ -89,6 +89,7 @@ PRODUCT_PACKAGES += \
     Basic \
     DSPManager \
     libcyanogen-dsp \
+    audio_effects.conf \
     openvpn \
     e2fsck \
     mke2fs \
@@ -100,9 +101,5 @@ PRODUCT_PACKAGES += \
     powertop \
     lsof \
     rsync
-
-# Fix DSPManager Issue
-PRODUCT_COPY_FILES += \
-  vendor/broodrom/prebuilt/common/etc/audio_effects.conf:system/etc/audio_effects.conf
 
 -include $(WORKSPACE)/hudson/image-auto-bits.mk

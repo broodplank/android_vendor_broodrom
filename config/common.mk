@@ -44,7 +44,7 @@ PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/lib/libsqlite_jni.so:system/lib/libsqlite_jni.so \
     vendor/broodrom/prebuilt/common/app/AngryGPS.apk:system/app/AngryGPS.apk \
     vendor/broodrom/prebuilt/common/app/FileManager.apk:system/app/FileManager.apk \
-    vendor/broodrom/prebuilt/common/app/TW5_Theme.apk:system/app/TW5_Theme.apk.apk \
+    vendor/broodrom/prebuilt/common/app/TW5_Theme.apk:system/app/TW5_Theme.apk \
     vendor/broodrom/prebuilt/common/app/Xperia-Z-Theme.apk:system/app/Xperia-Z-Theme.apk \
     vendor/broodrom/prebuilt/common/kernels/boot_oc.img:system/etc/broodrom/boot_oc.img \
     vendor/broodrom/prebuilt/common/kernels/boot_ocuv.img:system/etc/broodrom/boot_ocuv.img \

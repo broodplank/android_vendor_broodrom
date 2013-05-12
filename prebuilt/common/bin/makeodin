@@ -1,0 +1,47 @@
+#!/system/bin/sh
+# Created by broodplank1337
+# Make Odin ROM Script
+
+if [ -d /sdcard/odin ]; then
+	rm -Rf /sdcard/odin
+fi;
+
+if [ -e /sdcard/OdinImage.tar ]; then
+	rm -Rf /sdcard/OdinImage.tar
+fi;
+
+if [ -e /sdcard/OdinImage.tar.md5 ]; then
+	rm -Rf /sdcard/OdinImage.tar.md5
+fi;
+
+mkdir /sdcard/odin 
+cd /sdcard/odin
+
+echo "Dumping boot.img"
+dd if=/dev/block/mmcblk0p8 of=/sdcard/odin/boot.img
+
+echo "Dumping recovery.img"
+dd if=/dev/block/mmcblk0p13 of=/sdcard/odin/recovery.img
+
+echo "Dumping system"
+dd if=/dev/block/mmcblk0p15 of=/sdcard/odin/system.img.ext4
+
+echo "Dumping data"
+dd if=/dev/block/mmcblk0p17 of=/sdcard/odin/data.img.ext4
+
+echo "Making empty cache"
+dd if=/dev/zero of=/sdcard/odin/cache.img.ext4 bs=1K count=102400
+
+echo "Building Odin ROM..."
+tar -c boot.img recovery.img system.img.ext4 data.img.ext4 cache.img.ext4 > /sdcard/OdinImage.tar
+
+echo "Adding MD5 Sums..."
+md5sum -t /sdcard/OdinImage.tar >> /sdcard/OdinImage.tar
+
+echo "Renaming..."
+mv -f /sdcard/OdinImage.tar /sdcard/OdinImage.tar.md5
+
+echo "Odin Image Created!"
+
+
+

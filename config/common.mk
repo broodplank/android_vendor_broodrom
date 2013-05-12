@@ -38,6 +38,8 @@ PRODUCT_COPY_FILES += \
     vendor/broodrom/prebuilt/common/etc/broodrom/zipalign:system/etc/broodrom/zipalign \
     vendor/broodrom/prebuilt/common/xbin/zipalign:system/xbin/zipalign \
     vendor/broodrom/prebuilt/common/xbin/sqlite3:system/xbin/sqlite3 \
+    vendor/broodrom/prebuilt/common/bin/onandroid:system/bin/onandroid \
+    vendor/broodrom/prebuilt/common/bin/makeodin:system/bin/makeodin \
     vendor/broodrom/prebuilt/common/lib/libsqlite.so:system/lib/libsqlite.so \
     vendor/broodrom/prebuilt/common/lib/libsqlite_jni.so:system/lib/libsqlite_jni.so \
     vendor/broodrom/prebuilt/common/app/AngryGPS.apk:system/app/AngryGPS.apk \

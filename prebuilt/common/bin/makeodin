@@ -35,13 +35,13 @@ dd if=/dev/zero of=/sdcard/odin/cache.img.ext4 bs=1K count=102400
 echo "Building Odin ROM..."
 tar -c boot.img recovery.img system.img.ext4 data.img.ext4 cache.img.ext4 > /sdcard/OdinImage.tar
 
+echo "Making free space..."
+rm -Rf /sdcard/odin
+
 echo "Adding MD5 Sums..."
 md5sum -t /sdcard/OdinImage.tar >> /sdcard/OdinImage.tar
 
 echo "Renaming..."
-mv -f /sdcard/OdinImage.tar /sdcard/OdinImage.tar.md5
+busybox mv -f /sdcard/OdinImage.tar /sdcard/OdinImage.tar.md5
 
-echo "Odin Image Created!"
-
-
-
+echo "Odin Image Created! (/sdcard/OdinImage.tar.md5)"
